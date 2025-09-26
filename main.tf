@@ -1,9 +1,3 @@
-data "archive_file" "example" {
-  type        = "zip"
-  source_dir  = "${path.module}/."
-  output_path = "${path.module}/archive.zip"
-}
-
 resource "azurerm_resource_group" "example" {
   name     = var.resource_group_name
   location = var.location
@@ -29,4 +23,10 @@ resource "azurerm_storage_blob" "example" {
   storage_container_name = azurerm_storage_container.example.name
   type                   = "Block"
   source                 = data.archive_file.example.output_path
+}
+
+data "archive_file" "example" {
+  type        = "zip"
+  source_dir  = "${path.module}/."
+  output_path = "${path.module}/archive.zip"
 }
